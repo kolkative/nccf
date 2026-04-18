@@ -1,3 +1,27 @@
+:root {
+  --bg-color: #ffffff;
+  --bg-color-0: rgba(0, 0, 0, 0.04);
+  --bg-color-1: rgba(0, 0, 0, 0.06);
+  --bg-color-2: rgba(0, 0, 0, 0.08);
+  --fg-color: #000000;
+  --fg-color-0: rgba(0, 0, 0, 0.04);
+  --fg-color-1: rgba(0, 0, 0, 0.08);
+  --fg-color-2: rgba(0, 0, 0, 0.4);
+  --fg-color-3: rgba(0, 0, 0, 0.6);
+  --fg-color-4: #000000;
+  --fg-color-5: rgba(0, 0, 0, 0.024);
+  --fg-color-6: rgba(0, 0, 0, 0.8);
+  --notion-red: #e03e3e;
+  --notion-pink: #ad1a72;
+  --notion-blue: #0b6e99;
+  --notion-purple: #6940a5;
+  --notion-teal: #0f7b6c;
+  --notion-yellow: #dfab01;
+  --notion-orange: #d9730d;
+  --notion-brown: #64473a;
+  --notion-gray: #9b9a97;
+}
+
 * {
   box-sizing: border-box;
 }
