@@ -3,7 +3,7 @@ import "../styles/global.css";
 import "react-notion-x/src/styles.css"; 
 import "../styles/notion.css";             
 import "../styles/prism-theme.css";
-import "../styles/kolkatiive.css";
+import "../styles/kolkative.css";
 
 export const metadata: Metadata = {
   title: "Welcome to NCCF 4.0",
