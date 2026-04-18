@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "../styles/global.css";
-import "../styles/notion.css";
+import "react-notion-x/src/styles.css"; 
+import "../styles/notion.css";             
 import "../styles/prism-theme.css";
 
 export const metadata: Metadata = {
