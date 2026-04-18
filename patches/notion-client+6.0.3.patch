@@ -1,0 +1,124 @@
+diff --git a/node_modules/notion-client/src/notion-api.ts b/node_modules/notion-client/src/notion-api.ts
+--- a/node_modules/notion-client/src/notion-api.ts
++++ b/node_modules/notion-client/src/notion-api.ts
+@@ -1,6 +1,5 @@
+ // import { promises as fs } from 'fs'
+ import * as notion from 'notion-types'
+-import got, { OptionsOfJSONResponseBody } from 'got'
+ import {
+   getBlockCollectionId,
+   getPageContentBlockIds,
+@@ -54,7 +54,7 @@
+       signFileUrls?: boolean
+       chunkLimit?: number
+       chunkNumber?: number
+-      gotOptions?: OptionsOfJSONResponseBody
++      gotOptions?: RequestInit
+     } = {}
+   ): Promise<notion.ExtendedRecordMap> {
+ 
+@@ -201,7 +201,7 @@
+   }: {
+     recordMap: notion.ExtendedRecordMap
+     contentBlockIds?: string[]
+-    gotOptions?: OptionsOfJSONResponseBody
++    gotOptions?: RequestInit
+   }) {
+ 
+@@ -274,7 +274,7 @@
+     }: {
+       chunkLimit?: number
+       chunkNumber?: number
+-      gotOptions?: OptionsOfJSONResponseBody
++      gotOptions?: RequestInit
+     } = {}
+ 
+@@ -315,7 +315,7 @@
+       userTimeZone?: string
+       userLocale?: string
+       loadContentCover?: boolean
+-      gotOptions?: OptionsOfJSONResponseBody
++      gotOptions?: RequestInit
+     } = {}
+ 
+@@ -500,21 +500,7 @@
+   public async getUsers(
+     userIds: string[],
+-    gotOptions?: OptionsOfJSONResponseBody
++    gotOptions?: RequestInit
+   ) {
+ 
+@@ -513,7 +513,7 @@
+   public async getBlocks(
+     blockIds: string[],
+-    gotOptions?: OptionsOfJSONResponseBody
++    gotOptions?: RequestInit
+   ) {
+ 
+@@ -531,7 +531,7 @@
+   public async getSignedFileUrls(
+     urls: types.SignedUrlRequest[],
+-    gotOptions?: OptionsOfJSONResponseBody
++    gotOptions?: RequestInit
+   ) {
+ 
+@@ -544,7 +544,7 @@
+   public async search(
+     params: notion.SearchParams,
+-    gotOptions?: OptionsOfJSONResponseBody
++    gotOptions?: RequestInit
+   ) {
+ 
+@@ -576,20 +576,18 @@
+   public async fetch<T>({
+     endpoint,
+     body,
+     gotOptions,
+     headers: clientHeaders
+   }: {
+     endpoint: string
+     body: object
+-    gotOptions?: OptionsOfJSONResponseBody
++    gotOptions?: RequestInit
+     headers?: any
+   }): Promise<T> {
+     const headers: any = {
+       ...clientHeaders,
+-      ...gotOptions?.headers,
++      ...(gotOptions?.headers || {}),
+       'Content-Type': 'application/json'
+     }
+ 
+     if (this._authToken) {
+       headers.cookie = `token_v2=${this._authToken}`
+     }
+ 
+     if (this._activeUser) {
+       headers['x-notion-active-user-header'] = this._activeUser
+     }
+ 
+     const url = `${this._apiBaseUrl}/${endpoint}`
+ 
+-    return got
+-      .post(url, {
+-        ...gotOptions,
+-        json: body,
+-        headers
+-      })
+-      .json()
+-
+-    // return fetch(url, {
+-    //   method: 'post',
+-    //   body: JSON.stringify(body),
+-    //   headers
+-    // }).then((res) => {
+-    //   console.log(endpoint, res)
+-    //   return res.json()
+-    // })
++    return fetch(url, {
++      method: 'POST',
++      body: JSON.stringify(body),
++      headers
++    }).then((res) => res.json()) as Promise<T>
+   }
+ }
