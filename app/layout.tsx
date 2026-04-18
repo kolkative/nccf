@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import "react-notion-x/src/styles.css";
-import "prismjs/themes/prism-tomorrow.css";
+import "../styles/global.css";
+import "../styles/notion.css";
+import "../styles/prism-theme.css";
 
 export const metadata: Metadata = {
   title: "Welcome to NCCF 4.0",
